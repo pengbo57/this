@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="这是关键字">
+    <meta name="description" content="这是内容描述">
+    <title>这是标题</title>
+    <link rel="icon" href="">
+</head>
+<body>
+<div id="box">111</div>
+
+<script>
+    var oBox = document.getElementById("box");
+    //this ---->关键字: 在js中有特殊意义;
+    // 一.this: 函数的执行主体: 谁让这个函数执行的  指向的就是主体
+
+    // 1. 全局作用域下的this指向window , 和window是同一个空间地址
+                //console.log(this); this.a = 1; 给全局作用域增加属性名a 属性值1;
+
+    // 2. 如果给元素的事件行为绑定函数,那么这个函数中的this指向当前被绑定的元素
+                /*oBox.onclick = function () {
+                    console.log(this);  //当前点击的元素oBox
+                 }*/
+    // 3.函数中的this ,要看函数执行前有没有".",如果有".", "."前边的是谁,this就指向谁
+        //  如果没有".", 那么会指向window
+            /*function fn() {
+                console.log(this);//指向window
+            }
+            fn();*/
+       /*     var obj = {
+                num:1,
+                f:function () {
+                    console.log(this);
+                }
+            };
+            obj.f();//指向 obj
+            var fn=  obj.f;
+            fn();//指向 window*/
+
+
+    // 4. 自执行函数中的this , 永远指向window
+           /* (function () {
+                console.log(this);//this指向window
+            })()*/
+
+
+    // 5. 定时器中 函数的this   指向window
+        /*setInterval(function () {
+            console.log(this); // 指向window
+        },2000);*/
+
+    // 6. 构造函数中的this指向当前实例
+    // 7. call/apply/bind 可以改变函数this的指向
+
+
+    var num = 10;
+    var obj = {
+        num:20,
+        fn:(function () {
+           /* var num =1;*/
+                return function () {
+                    console.log(this.num);
+                }
+        })()
+    };
+
+
+    var f = obj.fn;
+    f();
+    obj.fn();
+
+
+
+
+
+</script>
+</body>
+</html>
